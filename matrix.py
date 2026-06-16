@@ -1,15 +1,8 @@
-def tampilkan_matrix(matrix, judul="MATRIX"):
-    print(f"\n{judul}:")
+def tampilkan_matrix(matrix):
+    print("\nMATRIX:")
     for row in matrix:
         print(" ".join(map(str, row)))
     print()
-
-
-def tampilkan_perbandingan(asli, hasil):
-    print("\n===== PERBANDINGAN MATRIX =====")
-
-    tampilkan_matrix(asli, "MATRIX ASLI")
-    tampilkan_matrix(hasil, "HASIL OPERASI")
 
 
 def sort_row_wise(matrix):
@@ -20,16 +13,14 @@ def sort_column_wise(matrix):
     rows = len(matrix)
     cols = len(matrix[0])
 
-    result = [row[:] for row in matrix]
-
     for j in range(cols):
-        kolom = [result[i][j] for i in range(rows)]
+        kolom = [matrix[i][j] for i in range(rows)]
         kolom.sort()
 
         for i in range(rows):
-            result[i][j] = kolom[i]
+            matrix[i][j] = kolom[i]
 
-    return result
+    return matrix
 
 
 def rotate_clockwise_by_one(matrix):
@@ -92,14 +83,12 @@ def row_wise_traversal(matrix):
 
 def column_wise_traversal(matrix):
     print("\nColumn-wise Traversal:")
-
     rows = len(matrix)
     cols = len(matrix[0])
 
     for j in range(cols):
         for i in range(rows):
             print(matrix[i][j], end=" ")
-
     print("\n")
 
 
@@ -138,28 +127,21 @@ def transpose(matrix):
     return [list(row) for row in zip(*matrix)]
 
 
-# ==========================
 # INPUT MATRIX
-# ==========================
-
-print("=== INPUT MATRIX ===")
+print("=== INPUT MATRIX baris dan Kolom ===")
 rows = int(input("Masukkan jumlah baris : "))
 cols = int(input("Masukkan jumlah kolom : "))
 
-matrix_asli = []
+matrix = []
 
 for i in range(rows):
     row = []
     for j in range(cols):
         nilai = int(input(f"Elemen [{i+1}][{j+1}] : "))
         row.append(nilai)
-    matrix_asli.append(row)
+    matrix.append(row)
 
-tampilkan_matrix(matrix_asli, "MATRIX ASLI")
-
-# ==========================
-# MENU
-# ==========================
+tampilkan_matrix(matrix)
 
 while True:
     print("""
@@ -181,44 +163,41 @@ while True:
     pilihan = int(input("Pilih menu : "))
 
     if pilihan == 1:
-        hasil = sort_row_wise(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = sort_row_wise(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 2:
-        hasil = sort_column_wise(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = sort_column_wise(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 3:
-        hasil = rotate_clockwise_by_one(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = rotate_clockwise_by_one(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 4:
-        hasil = rotate_counterclockwise_by_one(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = rotate_counterclockwise_by_one(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 5:
-        hasil = rotate_90(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = rotate_90(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 6:
-        hasil = rotate_180(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = rotate_180(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 7:
-        tampilkan_matrix(matrix_asli, "MATRIX ASLI")
-        row_wise_traversal(matrix_asli)
+        row_wise_traversal(matrix)
 
     elif pilihan == 8:
-        tampilkan_matrix(matrix_asli, "MATRIX ASLI")
-        column_wise_traversal(matrix_asli)
+        column_wise_traversal(matrix)
 
     elif pilihan == 9:
-        tampilkan_matrix(matrix_asli, "MATRIX ASLI")
-        spiral_print(matrix_asli)
+        spiral_print(matrix)
 
     elif pilihan == 10:
-        hasil = transpose(matrix_asli)
-        tampilkan_perbandingan(matrix_asli, hasil)
+        matrix = transpose(matrix)
+        tampilkan_matrix(matrix)
 
     elif pilihan == 0:
         print("Program selesai.")
